@@ -1,0 +1,3 @@
+# PHP backend secrets and dependencies
+backend/.env
+backend/vendor/
