@@ -1,24 +1,32 @@
 # Payme
 
-A Kotlin + Jetpack Compose Android mobile wallet starter app for:
-- multi-currency wallets
-- free P2P transfers
-- crypto exchange preview
-- transaction history
-- wallet dashboard
+Kotlin + Jetpack Compose mobile wallet starter for multi-currency balances, P2P transfers, and crypto exchange quotes.
 
-## Included features
-- Wallet dashboard with total balance and wallet cards
-- Send money form
-- Exchange quote form for fiat/crypto conversions
-- Recent transactions list
-- Room persistence for wallets and transactions
-- Material 3 user interface
+## Payment integrations added
 
-## Open in Android Studio
-1. Open this repository in Android Studio.
-2. Let Gradle sync complete.
-3. Choose the `app` configuration and press Run.
+The Android client now includes a secure backend-proxy contract for:
 
-## Notes
-This is a starter app and not a production payment backend. For real money movement, crypto exchange, or regulated transactions, add a secure backend, KYC/AML, provider APIs, and encrypted token storage.
+- **MTN MoMo** collections and payouts
+- **Airtel Money** collections and payouts
+- **Credit/debit card payments** through a PaymentIntent-style flow (compatible with providers such as Stripe)
+- Payment status and cancellation endpoints
+- Idempotency references for payment requests
+
+## Security architecture
+
+Provider credentials, webhook verification, card secret keys, and mobile-money API secrets must remain on the Payme backend. The Android app calls only the Payme API and receives short-lived payment results/client secrets. Never put MTN/Airtel credentials, Stripe secret keys, or raw card data in the APK.
+
+Before enabling live money movement, configure:
+
+1. MTN MoMo developer credentials and the country-specific environment/base URL.
+2. Airtel Money developer credentials and country-specific product configuration.
+3. A PCI-compliant card processor and server-side PaymentIntent creation.
+4. Webhook signature verification and idempotent transaction handling.
+5. KYC/AML, limits, fraud controls, reconciliation, and licensing for each operating country.
+6. `PaymentsClient.create(context, "https://api.your-domain.example")` with your HTTPS backend URL.
+
+Provider APIs vary by country and product, so the backend must normalize provider-specific authentication, request formats, and asynchronous status callbacks.
+
+## Run
+
+Open the repository in Android Studio, sync Gradle, select the `app` configuration, and run on a device or emulator.
