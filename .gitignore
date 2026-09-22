@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local SDK settings
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS metadata
+.DS_Store
+Thumbs.db
